@@ -1,0 +1,292 @@
+// 整体背景颜色
+body {
+  background-color: #f5f7f9;
+}
+
+// 宽高填满
+.fill {
+  width: 100%;
+  height: 100%;
+}
+// 宽填满
+.fill-width {
+  width: 100%;
+}
+// 高填满
+.fill-height {
+  height: 100%;
+}
+
+// 水平垂直居中
+.center-middle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+// 页面容器-flex----------
+.app-flex-container {
+  display: flex; // 父元素的定义为flex布局
+  flex-direction: column; // 定义排列方向为竖排
+  overflow: hidden;
+  height: 100vh;
+  width: 100%;
+}
+.app-flex-main {
+  flex: 1;
+  overflow: auto;
+  padding-bottom: 5px;
+}
+// ----------页面容器-flex
+
+// 页面内容容器-flex--------
+.content-flex-container {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+// 信息高度自适应 超出出现滚动条
+.content-flex-main {
+  flex: 1;
+  overflow-y: auto;
+}
+// --------页面内容容器-flex
+
+// 无数据显示
+.none-data {
+  width: 90%;
+  height: 50px;
+  margin-left: 5%;
+  margin-top: 0.2rem;
+  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 15px;
+  line-height: 50px;
+  background-color: #fff;
+}
+
+// 导航栏样式，背景颜色
+.van-nav-bar {
+  background: $blue;
+
+  // 标题为白色,返回图标,返回文字,右标题
+  .van-ellipsis,
+  .van-icon,
+  .van-nav-bar__text,
+  .van-nav-bar__left,
+  .van-nav-bar__right {
+    color: #fff;
+    font-weight: 500;
+  }
+}
+
+// 按钮居中
+.btn-center {
+  .van-cell__value {
+    text-align: center;
+  }
+}
+
+// 标签栏按钮
+.tabbar-btn {
+  width: 90%;
+  height: 75%;
+  margin: 2% 5%;
+  border-radius: 8px;
+}
+
+//单元格组两边间距-居中显示
+.base-group-cell {
+  width: 96%;
+  margin-left: 2%;
+  margin-top: 0.2rem;
+}
+.base-group-cell::after {
+  border: none;
+}
+.custom-form .van-cell-group__title {
+  padding: 0 16px;
+}
+// 表单单元格组第一个上边框无
+.base-group-cell .data-item:first-of-type::after {
+  border-top: none;
+}
+// 表单单元格组最后一个下边框无
+.base-group-cell .data-item:last-child::after {
+  border-bottom: none;
+}
+// 表单各组 内边框
+.inner-border .base-group-cell .cell-col {
+  border-bottom: 1px solid #f5f5f5;
+}
+.inner-border .base-group-cell .cell-col:last-child {
+  border-bottom: none;
+}
+//单元格组圆角
+.van-cell-group {
+  border-radius: 10px;
+}
+
+//单元格圆角，上下内边距
+.van-cell {
+  text-align: left;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  border-radius: 15px;
+}
+
+// 单元格标签和值
+.van-cell__value {
+  // min-width: 60%;
+  height: 100%;
+  text-align: left; //左对齐
+  color: #000;
+}
+.title-middle {
+  height: 25px;
+  font-size: 14px;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+// 表单内容标题
+.details-title {
+  height: 35px;
+  font-size: 14px;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid $gray;
+  margin: 0;
+}
+
+// 表单内容标题下横杠
+.details-title:after {
+  content: '';
+  position: absolute;
+  display: block;
+  border-top: 2px solid $blue;
+  width: 13px;
+  margin-top: 13px;
+}
+
+// 弹窗表单内容标题
+.details-info {
+  font-size: 14px;
+  padding-left: 32px;
+  background-color: $blue;
+  border-radius: 0px;
+  .van-cell__value {
+    color: #fff;
+  }
+}
+
+// 弹窗关闭按钮
+.van-popup__close-icon--top-right {
+  top: 8px;
+  right: 8px;
+}
+
+// 选择器颜色
+.van-picker {
+  .van-ellipsis {
+    color: #000;
+  }
+}
+
+// tag标签字体
+.van-tag {
+  font-size: 14px;
+  line-height: 18px;
+}
+
+// 输入框为‘搜索’类型时有x图标，隐藏×图标
+input[type='search']::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+/** 选择单元格-左label-右value-后单选按钮 */
+.radio-cell {
+  .van-cell__value {
+    min-width: 40%;
+    text-align: right;
+    color: #969799;
+  }
+  .van-radio {
+    margin: 0 5px;
+  }
+}
+
+// 特殊单元格组----------
+// form-cell-border-表单内单元格单独边框
+// single-cell单元格单独边框
+.form-cell-border,
+.single-cell {
+  // 表单单元格组边框无
+  .van-cell-group::after {
+    border: none;
+  }
+  .van-cell {
+    padding: 0;
+    margin: 2px 0;
+  }
+  // 无边框
+  .van-cell::after {
+    border: none;
+  }
+  // 文字标签居中-待确定
+  .van-field__label {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+  // 输入框边框
+  .van-cell__value {
+    border: 1px solid $borderGray;
+    border-radius: 15px;
+    padding: 4px 5px;
+  }
+  // 单元格-边框
+  .cell-ctx .cell-ctx-value {
+    border-radius: 15px;
+    border: 1px solid $borderGray;
+  }
+}
+// 高度间距缩小
+.form-cell-border.show-staus,
+.single-cell.show-staus {
+  .van-cell__value {
+    padding: 1px 5px;
+  }
+}
+
+// 表单单元格组边框无
+.base-group-cell .single-cell::after {
+  border: none;
+}
+// ----------特殊单元格组
+
+.van-toast {
+  width: fit-content;
+  min-width: 88px;
+}
+
+// 修改复选框的禁用时的颜色，满足用户特殊需求
+.van-checkbox__icon--disabled.van-checkbox__icon--checked .van-icon {
+  color: #fdfdfd;
+}
+// 修改复选框的禁用时的颜色，满足用户特殊需求
+.van-checkbox__icon--disabled .van-icon {
+  background-color: #6b6969;
+  border-color: #615f5f;
+}
+
+@import 'business';

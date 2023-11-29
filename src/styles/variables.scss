@@ -1,0 +1,23 @@
+// base color
+$bgColor: #f5f7f9; // 背景色
+$blue: #1989fa; // 通用蓝色
+$gray: #ebedf0; // 通用灰色
+$subGray: #e0e1e2; // 弹窗头部底边框色
+$borderGray: #b2b2b2; // 边框颜色
+
+// $borderColor :;
+// $navBgColor :;
+// $hoverColor  :;
+// $menuText:
+// $menuActiveText:
+// $subMenuActiveText:
+// $menuBg:
+// $menuHover:
+// $subMenuBg:
+// $subMenuHover:
+// $sideBarWidth: ;
+
+:export {
+  blue: $blue;
+  gray: $gray;
+}

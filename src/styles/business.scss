@@ -1,0 +1,50 @@
+.toggleFormCellTitle.van-cell__title {
+  flex: 0;
+
+  i {
+    font-size: 20px;
+    padding-top: 10px;
+  }
+}
+
+.tableCellGroup {
+  margin-top: 10px;
+  border-radius: 0;
+  border-top: 1px solid #ddd;
+
+  .van-cell {
+    border-radius: 0;
+    border-bottom: 1px solid #ddd;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .van-cell__title {
+    border-right: 1px solid #ddd;
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  .van-cell__value {
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+}
+
+// TableDialog
+.tableDialogVue {
+  border-radius: 0;
+
+  .van-dialog__content {
+    height: 50vh;
+    overflow: auto;
+  }
+}
+
+.tableTitle {
+  background-color: #f0f0f0
+}
+
+.van-grid-item {
+  font-size: 14px;
+}
