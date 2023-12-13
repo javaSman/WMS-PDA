@@ -197,3 +197,12 @@ export function getListComments(data) {
     data
   })
 }
+
+// 获取条码明细
+export function get261ImBarcode(data) {
+  return request({
+    url: process.env.VUE_APP_BASE_API_SAP + '9037Wcf/WarehouseService.svc/rest/ZftdXmbeList',
+    method: 'POST',
+    data
+  })
+}

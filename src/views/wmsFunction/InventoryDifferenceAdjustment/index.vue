@@ -232,12 +232,12 @@ export default {
         })
         // 调用接口
         let res = await WMSAPI.post(passAPIName, { data: result })
-        if (res && res.success) {
-          this.$toast.success(res.message || '过账成功')
+        if (res && !res.IsError) {
+          this.$toast.success(res.ErrMsg || '过账成功')
           // 清空表单和列表
           this.handleClear()
         } else {
-          _showFailToast(res.message)
+          _showFailToast(res.ErrMsg)
         }
       } catch (e) {
         console.log(e)

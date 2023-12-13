@@ -183,8 +183,8 @@ export default {
         if (res.success) {
           let _data = res.data
           // 混入唯一值，用于勾选数据
-          this.tableData = _data.map((item) => ({ ...item, uuid: uuidv4(), wmsTools: item.wmS_TOOLS, locationId: item.wmS_LGORT }))
-          // this.tableData = _data.map((item) => ({ ...item, uuid: uuidv4() }))
+          // this.tableData = _data.map((item) => ({ ...item, uuid: uuidv4(), wmsTools: item.wmS_TOOLS, locationId: item.wmS_LGORT }))
+          this.tableData = _data.map((item) => ({ ...item, uuid: uuidv4() }))
           this.$nextTick(() => {
             // 默认勾选数据
             let selectArr = this.tableData.map((item) => item.uuid)

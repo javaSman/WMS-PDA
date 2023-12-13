@@ -477,10 +477,16 @@ export const asyncRoutes = [
         component: () => import('@/views/transfer/311FactoryTransfer/index')
       },
       {
-        path: '311FactoryTransfer-WMS',
-        name: 'transfer.311FactoryTransferWMS',
-        meta: { title: '311工厂内转移-WMS' },
-        component: () => import('@/views/transfer/311FactoryTransfer-WMS/index')
+        path: '311FactoryTransferInto-WMS',
+        name: 'transfer.311FactoryTransferWMSInto',
+        meta: { title: '311工厂内转移（转入）-WMS' },
+        component: () => import('@/views/transfer/311FactoryTransferInto-WMS/index')
+      },
+      {
+        path: '311FactoryTransferOut-WMS',
+        name: 'transfer.311FactoryTransferWMSOut',
+        meta: { title: '311工厂内转移（转出）-WMS' },
+        component: () => import('@/views/transfer/311FactoryTransferOut-WMS/index')
       },
       {
         path: '315MaterialPreparationTransfer',
@@ -709,6 +715,12 @@ export const asyncRoutes = [
         name: 'WMSLineSideWarehouse.VehicleReception',
         meta: { title: '载具接收' },
         component: () => import('@/views/WMSLineSideWarehouse/vehicleReception/index')
+      },
+      {
+        path: 'GenerateDeliveryNote',
+        name: 'WMSLineSideWarehouse.GenerateDeliveryNote',
+        meta: { title: '生成送货单' },
+        component: () => import('@/views/WMSLineSideWarehouse/generateDeliveryNote/index')
       }
     ]
   },
@@ -754,6 +766,12 @@ export const asyncRoutes = [
         name: 'machinedWarehousing.warehousingOfSelfMadeMachineParts',
         meta: { title: '自制机加件入库-WMS' },
         component: () => import('@/views/machinedWarehousing/warehousingOfSelfMadeMachineParts/index')
+      },
+      {
+        path: '261MachinedPartsMaterialIssuance',
+        name: 'machinedWarehousing.261MachinedPartsMaterialIssuance',
+        meta: { title: '261机加件发料' },
+        component: () => import('@/views/machinedWarehousing/261MachinedPartsMaterialIssuance/index')
       }
       // {
       //   path: 'Machined105GoodToWarehouseWMS',

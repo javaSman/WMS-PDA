@@ -140,7 +140,11 @@ export default {
         // 如果表头没数据那么久赋值
         if (!this.computedFormValue()) {
           if (res.data.title.sapStatus === 'I') {
-            this.$dialog({ message: res.data.title.sapMsg })
+            this.$dialog({ message: res.data.title.sapMsg }).then(() => {
+              this.form.imBarcode = ''
+              let inputRef = this.$refs.formComponent.$refs.imBarcode[0].$refs.inputRef
+              inputRef.focus()
+            })
           }
           // form.sjpno = _data.title.sjpno
           // form.barcode = _data.title.barcode
@@ -167,8 +171,8 @@ export default {
             ngeln: this.form.ngeln,
             bwart: '261'
           })
-          // 这里还需要判断物料编码的开头情况，如果不是以407或者40301开头的不允许添加并提示报错
-          if (result.matnr.startsWith('407') || result.matnr.startsWith('40301')) {
+          // 这里还需要判断物料编码的开头情况，如果不是以407或者40301或者30304开头的不允许添加并提示报错
+          if (result.matnr.startsWith('407') || result.matnr.startsWith('40301') || result.matnr.startsWith('30304')) {
             // 混入一个uuid标识用来勾选数据
             let resultArr = [result].map((item) => ({
               ...item,
@@ -190,9 +194,11 @@ export default {
               _showFailToast('当前条码已经在列表中，请勿重复扫码')
             }
           } else {
-            _showFailToast('不是407或者40301开头的物料不允许添加')
+            _showFailToast('不是407或者40301或者30304开头的物料不允许添加')
           }
         }
+      } else {
+        _showFailToast(res.msg)
       }
     },
     // 确定过账

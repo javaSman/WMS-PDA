@@ -128,6 +128,7 @@ export default {
      */
     async blueprintEnter(val) {
       let inputRef = this.getVueComponentByProp('pictNum')
+      let imBarcodeInputRef = this.getVueComponentByProp('imBarcode')
       let _this = this
       if (!this.form.pictNum) {
         _showFailToast('请扫图纸号')
@@ -147,7 +148,10 @@ export default {
         if (res.success) {
           let _data = res.data
           if (res.data.title.sapStatus === 'I') {
-            await this.$dialog({ message: res.data.title.sapMsg })
+            this.$dialog({ message: res.data.title.sapMsg }).then(() => {
+              // _this.$set(this.form, 'pictNum', '')
+              imBarcodeInputRef?.focus()
+            })
           }
           // 工厂号
           let werks = Number(_data.title.werks)
@@ -179,6 +183,8 @@ export default {
             //   inputRef?.focus()
             // }
           }
+        } else {
+          _showFailToast(res.msg)
         }
       } catch (e) {
         console.log(e)
@@ -211,7 +217,7 @@ export default {
 
           if (this.tableData.map((item) => item.matnr).includes(_data.matnr)) {
             _showFailToast('当前物料号已存在，请勿重复添加')
-            _this.$set(this.form, 'pictNum', '')
+            _this.$set(this.form, 'imBarcode', '')
             inputRef?.focus()
             return
           }
@@ -219,8 +225,8 @@ export default {
             _showFailToast('当前所扫条码的工厂与图纸号不符合，不允许添加')
             return
           }
-          // 这里还需要判断物料编码的开头情况，如果不是以407或者40301开头的不允许添加并提示报错
-          if (_data.matnr.startsWith('407') || _data.matnr.startsWith('40301')) {
+          // 这里还需要判断物料编码的开头情况，如果不是以407或者40301或者30304开头的不允许添加并提示报错
+          if (_data.matnr.startsWith('407') || _data.matnr.startsWith('40301') || _data.matnr.startsWith('30304')) {
             // 符合条件的放入数组之前先混入uuid
             this.tableData.push({ ..._data, uuid: uuidv4(), erfmg: _data.erfmg > 0 ? _data.erfmg : '', operator: this.extraParams.cardname })
             let selectArr = this.tableData.map((item) => item.uuid)
@@ -229,9 +235,11 @@ export default {
             _this.$set(this.form, 'imBarcode', '')
             inputRef.focus()
           } else {
-            _showFailToast('不是407或者40301开头的物料不允许添加')
+            _showFailToast('不是407或者40301或者30304开头的物料不允许添加')
             return
           }
+        } else {
+          _showFailToast(res.msg)
         }
       } catch (e) {
         console.log(e)
@@ -299,7 +307,7 @@ export default {
             // 清空表单和列表
             this.handleClear()
           } else {
-            _showFailToast(res.data)
+            _showFailToast(res.msg)
           }
         } catch (e) {
           console.log(e)

@@ -232,8 +232,8 @@ export default {
             ngeln: this.form.ngeln,
             bwart: '261'
           })
-          // 这里还需要判断物料编码的开头情况，如果不是以407或者40301开头的不允许添加并提示报错
-          if (result.matnr.startsWith('407') || result.matnr.startsWith('40301')) {
+          // 这里还需要判断物料编码的开头情况，如果不是以407或者40301或者30304开头的不允许添加并提示报错
+          if (result.matnr.startsWith('407') || result.matnr.startsWith('40301') || result.matnr.startsWith('30304')) {
             // 混入一个uuid标识用来勾选数据
             // tips:这里要混入表头的三个信息
             let resultArr = [result].map((item) => ({
@@ -261,7 +261,7 @@ export default {
             let inputRef = this.getVueComponentByProp('imBarcode')
             inputRef.focus()
           } else {
-            _showFailToast('不是407或者40301开头的物料不允许添加')
+            _showFailToast('不是407或者40301或者30304开头的物料不允许添加')
           }
         }
       }

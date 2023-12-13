@@ -238,11 +238,11 @@ export default {
       // 每次仓库选择先清空码头内容
       this.$set(this.form, 'wharfNo', '')
       let res = await GetWharfByWarehouse(val)
-      if (res.success) {
+      if (!res.IsError) {
         this.formList[1].options = res.wharf
         // 默认选择第一个
         if (res.wharf.length > 0) {
-          this.$set(this.form, 'wharfNo', res.wharf[0].wharfID)
+          this.$set(this.form, 'wharfNo', res.wharf[0].WharfID)
         }
       }
     },

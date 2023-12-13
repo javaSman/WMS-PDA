@@ -172,7 +172,7 @@ export default {
         this.$refs.formComponent.$refs.imBarcode[0].$refs.inputRef.focus()
       } else {
         this.form.wmsTools = ''
-        this.$refs.formComponent.$refs.wmsTools.$refs.inputRef.focus()
+        // this.$refs.formComponent.$refs.wmsTools.$refs.inputRef.focus()
         _showFailToast(res.message)
       }
     },
@@ -233,8 +233,8 @@ export default {
             ngeln: this.form.ngeln,
             bwart: '261'
           })
-          // 这里还需要判断物料编码的开头情况，如果不是以407或者40301开头的不允许添加并提示报错
-          if (result.matnr.startsWith('407') || result.matnr.startsWith('40301')) {
+          // 这里还需要判断物料编码的开头情况，如果不是以407或者40301或者30304开头的不允许添加并提示报错
+          if (result.matnr.startsWith('407') || result.matnr.startsWith('40301') || result.matnr.startsWith('30304')) {
             // 混入一个uuid标识用来勾选数据
             let resultArr = [result].map((item) => ({
               ...item,
@@ -256,9 +256,11 @@ export default {
             let inputRef = this.$refs.formComponent.$refs.imBarcode[0].$refs.inputRef
             inputRef.focus()
           } else {
-            _showFailToast('不是407或者40301开头的物料不允许添加')
+            _showFailToast('不是407或者40301或者30304开头的物料不允许添加')
           }
         }
+      } else {
+        _showFailToast(res.msg)
       }
       // 第二步根据单号去获取sap数据
     },

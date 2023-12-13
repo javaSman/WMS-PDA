@@ -296,10 +296,10 @@ export default {
           return
         }
         // 物料编号长度不等于12时，进行提示
-         if (!_selection.every((item) => item['materialNo'].length === 12)) {
-          _showFailToast('所提交项中存在物料编号不正确，请检查')
-          return
-        }
+        //  if (!_selection.every((item) => item['materialNo'].length === 12)) {
+        //   _showFailToast('所提交项中存在物料编号不正确，请检查')
+        //   return
+        // }
         await validateOriginQtyLimit(staticData, _selection, 'newQuantity', 'menge')
         await customerDialog({
           count: this.selectedList.length,

@@ -213,7 +213,8 @@ export default {
         if (res.success) {
           // TODO 这里现在是手工勾选了
           let _data = res.data
-          this.tableData = _data.map((item) => ({ ...item, uuid: uuidv4(), wmsTools: item.wmS_TOOLS, locationId: item.wmS_LGORT }))
+          // this.tableData = _data.map((item) => ({ ...item, uuid: uuidv4(), wmsTools: item.wmS_TOOLS, locationId: item.wmS_LGORT }))
+          this.tableData = _data.map((item) => ({ ...item, uuid: uuidv4() }))
           // 混入唯一值，用于勾选数据
           // 深拷贝保留一份副本
           this.$nextTick(() => {

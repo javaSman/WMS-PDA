@@ -12,7 +12,7 @@ export const formList = [
     label: '码头',
     prop: 'wharfNo',
     options: [],
-    optProps: { label: 'wharfName', value: 'wharfID' }
+    optProps: { label: 'WharfName', value: 'WharfID' }
   },
   {
     type: 'Input',

@@ -152,6 +152,7 @@ export default {
      */
     async blueprintEnter(val) {
       let inputRef = this.getVueComponentByProp('pictNum')
+      let imBarcodeInputRef = this.getVueComponentByProp('imBarcode')
       if (!this.form.pictNum) {
         _showFailToast('请扫图纸号')
         return
@@ -167,7 +168,9 @@ export default {
           if (res.success) {
             let _data = res.data
             if (res.data.title.sapStatus === 'I') {
-              this.$dialog({ message: res.data.title.sapMsg })
+              this.$dialog({ message: res.data.title.sapMsg }).then(() => {
+                imBarcodeInputRef?.focus()
+              })
             }
             // 工厂号
             let werks = Number(_data.title.werks)
@@ -199,6 +202,8 @@ export default {
               //   inputRef?.focus()
               // }
             }
+          } else {
+            _showFailToast(res.msg)
           }
         } else {
           _showFailToast('当前所扫图纸号已扫条码号，不允许再扫图纸号，请清空内容后再扫')
@@ -229,33 +234,36 @@ export default {
         psnName: this.extraParams?.cardname
       })
         .then((res) => {
-          let _data = res.data
-
-          if (!this.tableData.find((item) => item.matnr === _data.matnr)) {
-            // 这里还需要判断物料编码的开头情况，如果不是以407或者40301开头的不允许添加并提示报错
-            if (_data.matnr.startsWith('407') || _data.matnr.startsWith('40301')) {
-              if (this.hiddenFormList.some((item) => item.werks !== _data.werks)) {
-                _showFailToast('当前所扫条码的工厂与图纸号不符合，不允许添加')
+          if (res.success) {
+            let _data = res.data
+            if (!this.tableData.find((item) => item.matnr === _data.matnr)) {
+              // 这里还需要判断物料编码的开头情况，如果不是以407或者40301或者30304开头的不允许添加并提示报错
+              if (_data.matnr.startsWith('407') || _data.matnr.startsWith('40301') || _data.matnr.startsWith('30304')) {
+                if (this.hiddenFormList.some((item) => item.werks !== _data.werks)) {
+                  _showFailToast('当前所扫条码的工厂与图纸号不符合，不允许添加')
+                } else {
+                  // 符合条件的放入数组之前先混入uuid
+                  this.tableData.push({ ..._data, uuid: uuidv4() })
+                  this.tableData = this.tableData.map((item) => ({
+                    ...item,
+                    erfmg: Number(item.erfmg) > 0 ? item.erfmg : '',
+                    operator: this.extraParams.cardname
+                  }))
+                  this.$set(this.form, 'imBarcode', '')
+                  let selectArr = this.tableData.map((item) => item.uuid)
+                  // 将数据默认勾选上
+                  this.$refs.table?.handleSelect(selectArr)
+                }
               } else {
-                // 符合条件的放入数组之前先混入uuid
-                this.tableData.push({ ..._data, uuid: uuidv4() })
-                this.tableData = this.tableData.map((item) => ({
-                  ...item,
-                  erfmg: Number(item.erfmg) > 0 ? item.erfmg : '',
-                  operator: this.extraParams.cardname
-                }))
-                this.$set(this.form, 'imBarcode', '')
-                let selectArr = this.tableData.map((item) => item.uuid)
-                // 将数据默认勾选上
-                this.$refs.table?.handleSelect(selectArr)
+                _showFailToast('不是407或者40301或者30304开头的物料不允许添加')
               }
             } else {
-              _showFailToast('不是407或者40301开头的物料不允许添加')
+              _showFailToast('当前物料号已存在，请勿重复添加')
+              _this.$set(this.form, 'pictNum', '')
+              inputRef?.focus()
             }
           } else {
-            _showFailToast('当前物料号已存在，请勿重复添加')
-            _this.$set(this.form, 'pictNum', '')
-            inputRef?.focus()
+            _showFailToast(res.msg)
           }
         })
         .finally(() => {
@@ -332,14 +340,14 @@ export default {
           let res = await WMSAPI.post(passAPIName, _data)
           if (res && res.success) {
             _showSuccessToast({
-              message: res.msg,
+              message: res.message,
               duration: 10 * 1000
             })
             // this.$toast.success(res.message || '过账成功')
             // 清空表单和列表
             this.submitClear()
           } else {
-            _showFailToast(res.message)
+            _showFailToast(res.msg)
           }
         } catch (e) {
           console.log(e)
